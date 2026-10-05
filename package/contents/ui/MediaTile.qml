@@ -1,72 +1,73 @@
 import QtQuick
 import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
+import org.kde.plasma.components as PC3
 
 FocusScope {
     id: root
 
     property string title: ""
     property string subtitle: ""
-    property string iconText: ""
-    property bool selected: activeFocus
+    property string iconName: ""
+    property string fallbackGlyph: ""
     signal activated()
 
     implicitWidth: 250
     implicitHeight: 150
 
-    Rectangle {
+    PC3.Button {
+        id: button
         anchors.fill: parent
-        radius: 22
-        color: root.selected ? Qt.rgba(1, 1, 1, 0.18) : Qt.rgba(1, 1, 1, 0.08)
-        border.width: root.selected ? 3 : 1
-        border.color: root.selected ? Kirigami.Theme.highlightColor : Qt.rgba(1, 1, 1, 0.12)
-        scale: root.selected ? 1.045 : 1.0
+        focus: true
+        hoverEnabled: true
 
-        Behavior on scale {
-            NumberAnimation { duration: 120 }
+        onClicked: root.activated()
+        onActiveFocusChanged: {
+            if (activeFocus) {
+                root.forceActiveFocus()
+            }
         }
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: 20
-            spacing: 8
+        contentItem: RowLayout {
+            spacing: Kirigami.Units.largeSpacing
 
-            Text {
-                text: root.iconText
-                font.pixelSize: 42
-                color: Kirigami.Theme.textColor
+            Kirigami.Icon {
+                visible: root.iconName.length > 0
+                source: root.iconName
+                Layout.preferredWidth: Kirigami.Units.iconSizes.huge
+                Layout.preferredHeight: Kirigami.Units.iconSizes.huge
             }
 
-            Item { Layout.fillHeight: true }
+            PC3.Label {
+                visible: root.iconName.length === 0 && root.fallbackGlyph.length > 0
+                text: root.fallbackGlyph
+                font.pixelSize: Kirigami.Units.gridUnit * 2
+            }
 
-            Text {
-                text: root.title
-                font.pixelSize: 24
-                font.bold: true
-                color: Kirigami.Theme.textColor
-                elide: Text.ElideRight
+            ColumnLayout {
                 Layout.fillWidth: true
-            }
+                spacing: Kirigami.Units.smallSpacing
 
-            Text {
-                visible: root.subtitle.length > 0
-                text: root.subtitle
-                font.pixelSize: 15
-                color: Kirigami.Theme.disabledTextColor
-                elide: Text.ElideRight
-                Layout.fillWidth: true
+                PC3.Label {
+                    text: root.title
+                    font.bold: true
+                    font.pixelSize: Kirigami.Units.gridUnit * 1.25
+                    elide: Text.ElideRight
+                    Layout.fillWidth: true
+                }
+
+                PC3.Label {
+                    visible: root.subtitle.length > 0
+                    text: root.subtitle
+                    opacity: 0.72
+                    elide: Text.ElideRight
+                    Layout.fillWidth: true
+                }
             }
         }
 
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onEntered: root.forceActiveFocus()
-            onClicked: root.activated()
-        }
+        Keys.onReturnPressed: root.activated()
+        Keys.onEnterPressed: root.activated()
+        Keys.onSpacePressed: root.activated()
     }
-
-    Keys.onReturnPressed: activated()
-    Keys.onEnterPressed: activated()
-    Keys.onSpacePressed: activated()
 }
