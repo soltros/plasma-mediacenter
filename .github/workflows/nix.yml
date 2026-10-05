@@ -1,0 +1,23 @@
+name: Nix
+
+on:
+  push:
+    branches: [main, "prototype/**"]
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check flake
+        run: nix flake check --show-trace
+      - name: Build package
+        run: nix build .#plasma-mediacenter --print-build-logs
