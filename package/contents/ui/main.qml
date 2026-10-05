@@ -120,7 +120,7 @@ PlasmoidItem {
                         RowLayout {
                             id: browseRow
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 8
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 5.5
                             spacing: Kirigami.Units.largeSpacing
 
                             MediaTile {
@@ -170,20 +170,20 @@ PlasmoidItem {
                                 subtitle: qsTr("Aonsoku")
                                 iconName: "audio-x-generic"
                                 fallbackGlyph: "♫"
-                                onActivated: Qt.openUrlExternally("applications:io.github.victoralvesf.aonsoku.desktop")
+                                onActivated: Qt.openUrlExternally("applications:info.soltros.aonsoku.desktop")
                             }
                         }
 
                         RunningWindowsRow {
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 9.5
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 7
                             appletInterface: root
                         }
 
                         FavoritesRow {
                             id: favorites
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 9.5
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 7
                             appletInterface: root
                         }
 
