@@ -159,27 +159,30 @@ PlasmoidItem {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 title: qsTr("Movies")
-                                subtitle: qsTr("Media provider")
+                                subtitle: qsTr("Jellyfin")
                                 iconName: "video-x-generic"
                                 fallbackGlyph: "◆"
+                                onActivated: Qt.openUrlExternally("https://jellyfin.soltros.info/web/#/movies")
                             }
 
                             MediaTile {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-                                title: qsTr("Shows")
-                                subtitle: qsTr("Media provider")
+                                title: qsTr("TV Shows")
+                                subtitle: qsTr("Jellyfin")
                                 iconName: "folder-videos"
                                 fallbackGlyph: "▤"
+                                onActivated: Qt.openUrlExternally("https://jellyfin.soltros.info/web/#/tv")
                             }
 
                             MediaTile {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 title: qsTr("Music")
-                                subtitle: qsTr("Albums & playlists")
+                                subtitle: qsTr("Aonsoku")
                                 iconName: "audio-x-generic"
                                 fallbackGlyph: "♫"
+                                onActivated: Qt.openUrlExternally("applications:io.github.victoralvesf.aonsoku.desktop")
                             }
                         }
 
