@@ -57,7 +57,7 @@ FocusScope {
         ListView {
             id: favoritesView
             Layout.fillWidth: true
-            Layout.preferredHeight: Kirigami.Units.gridUnit * 4.75
+            Layout.preferredHeight: Kirigami.Units.gridUnit * 4.2
             orientation: ListView.Horizontal
             spacing: Kirigami.Units.largeSpacing
             clip: true
