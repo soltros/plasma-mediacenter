@@ -114,6 +114,13 @@ PlasmoidItem {
                             baseUrl: Plasmoid.configuration.searxngBaseUrl
                         }
 
+                        Item {
+                            id: spacerAfterSearch
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 1.5
+                        }
+
                         PC3.Label {
                             text: qsTr("Browse")
                             font.pixelSize: Kirigami.Units.gridUnit * 1.15
@@ -190,12 +197,26 @@ PlasmoidItem {
                             }
                         }
 
+                        Item {
+                            id: spacerAfterBrowse
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 1.5
+                        }
+
                         RunningWindowsRow {
                             Layout.fillWidth: true
                             Layout.minimumHeight: Kirigami.Units.gridUnit * 5.2
                             Layout.preferredHeight: Kirigami.Units.gridUnit * 5.2
                             Layout.maximumHeight: Kirigami.Units.gridUnit * 5.2
                             appletInterface: root
+                        }
+
+                        Item {
+                            id: spacerAfterRunning
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 1.5
                         }
 
                         FavoritesRow {
@@ -209,8 +230,7 @@ PlasmoidItem {
 
                         Item {
                             Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.minimumHeight: Kirigami.Units.largeSpacing
+                            Layout.minimumHeight: Kirigami.Units.smallSpacing
                         }
 
                         NowPlaying {
