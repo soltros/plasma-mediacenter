@@ -10,6 +10,10 @@ PlasmoidItem {
 
     property string currentPage: "home"
 
+    ExecLauncher {
+        id: execLauncher
+    }
+
     implicitWidth: Kirigami.Units.gridUnit * 72
     implicitHeight: Kirigami.Units.gridUnit * 42
 
@@ -120,7 +124,7 @@ PlasmoidItem {
                         RowLayout {
                             id: browseRow
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 5.5
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 4.75
                             spacing: Kirigami.Units.largeSpacing
 
                             MediaTile {
@@ -140,7 +144,7 @@ PlasmoidItem {
                                 subtitle: qsTr("Supraviolet Desktop")
                                 iconName: "video-television"
                                 fallbackGlyph: "▣"
-                                onActivated: Qt.openUrlExternally("applications:info.soltros.supraviolet.desktop")
+                                onActivated: execLauncher.launch("/home/derrik/supraviolet-desktop/target/release/supraviolet-desktop")
                             }
 
                             MediaTile {
@@ -170,20 +174,30 @@ PlasmoidItem {
                                 subtitle: qsTr("Aonsoku")
                                 iconName: "audio-x-generic"
                                 fallbackGlyph: "♫"
-                                onActivated: Qt.openUrlExternally("applications:info.soltros.aonsoku.desktop")
+                                onActivated: execLauncher.launch("flatpak run io.github.victoralvesf.aonsoku")
+                            }
+
+                            MediaTile {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                title: qsTr("Weather")
+                                subtitle: qsTr("Plasma Weather")
+                                iconName: "weather-clear"
+                                fallbackGlyph: "☀"
+                                onActivated: execLauncher.launch("plasmawindowed org.kde.plasma.weather")
                             }
                         }
 
                         RunningWindowsRow {
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 7
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 6.25
                             appletInterface: root
                         }
 
                         FavoritesRow {
                             id: favorites
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 7
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 6.25
                             appletInterface: root
                         }
 
@@ -195,7 +209,7 @@ PlasmoidItem {
 
                         NowPlaying {
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 5.5
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 4.75
                             Layout.topMargin: Kirigami.Units.smallSpacing
                         }
                     }
