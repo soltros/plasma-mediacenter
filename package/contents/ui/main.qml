@@ -186,6 +186,12 @@ PlasmoidItem {
                             }
                         }
 
+                        RunningWindowsRow {
+                            Layout.fillWidth: true
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 9.5
+                            appletInterface: root
+                        }
+
                         FavoritesRow {
                             id: favorites
                             Layout.fillWidth: true
