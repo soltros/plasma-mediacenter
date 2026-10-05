@@ -12,8 +12,8 @@ FocusScope {
     property string fallbackGlyph: ""
     signal activated()
 
-    implicitWidth: Kirigami.Units.gridUnit * 12
-    implicitHeight: Kirigami.Units.gridUnit * 5.5
+    implicitWidth: Kirigami.Units.gridUnit * 10
+    implicitHeight: Kirigami.Units.gridUnit * 4.75
 
     PC3.Button {
         id: button
@@ -34,7 +34,7 @@ FocusScope {
             Kirigami.Icon {
                 visible: root.iconName.length > 0
                 source: root.iconName
-                Layout.preferredWidth: Kirigami.Units.iconSizes.large
+                Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                 Layout.preferredHeight: Kirigami.Units.iconSizes.large
             }
 
@@ -51,7 +51,7 @@ FocusScope {
                 PC3.Label {
                     text: root.title
                     font.bold: true
-                    font.pixelSize: Kirigami.Units.gridUnit * 1.05
+                    font.pixelSize: Kirigami.Units.gridUnit * 0.95
                     elide: Text.ElideRight
                     Layout.fillWidth: true
                 }
