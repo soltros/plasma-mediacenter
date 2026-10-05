@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC }:
+{ lib, stdenvNoCC, qt6 }:
 
 stdenvNoCC.mkDerivation {
   pname = "plasma-mediacenter";
@@ -23,6 +23,8 @@ stdenvNoCC.mkDerivation {
 
     mkdir -p "$out/bin"
     install -m 0755 scripts/plasma-mediacenter-setup "$out/bin/plasma-mediacenter-setup"
+    substituteInPlace "$out/bin/plasma-mediacenter-setup" \
+      --replace-fail "qdbus6" "${qt6.qttools}/bin/qdbus"
 
     mkdir -p "$out/share/doc/plasma-mediacenter"
     cp ARCHITECTURE.md "$out/share/doc/plasma-mediacenter/"
