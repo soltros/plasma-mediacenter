@@ -1,0 +1,17 @@
+{
+  "KPackageStructure": "Plasma/Applet",
+  "KPlugin": {
+    "Id": "info.soltros.plasma-mediacenter.containment",
+    "Name": "Plasma Media Center Desktop",
+    "Description": "Panel-less Plasma desktop containment for a TV-friendly media center",
+    "Version": "0.1.0",
+    "License": "MIT",
+    "Authors": [
+      { "Name": "SoltrOS" }
+    ],
+    "Category": "Containments",
+    "Icon": "video-television"
+  },
+  "X-Plasma-API-Minimum-Version": "6.0",
+  "X-Plasma-ContainmentType": "Desktop"
+}
