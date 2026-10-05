@@ -21,6 +21,9 @@ stdenvNoCC.mkDerivation {
     mkdir -p "$out/share/plasma-mediacenter/scripts"
     cp scripts/plasma-mediacenter-layout.js "$out/share/plasma-mediacenter/scripts/"
 
+    mkdir -p "$out/bin"
+    install -m 0755 scripts/plasma-mediacenter-setup "$out/bin/plasma-mediacenter-setup"
+
     mkdir -p "$out/share/doc/plasma-mediacenter"
     cp ARCHITECTURE.md "$out/share/doc/plasma-mediacenter/"
     cp docs/CONTAINMENT.md "$out/share/doc/plasma-mediacenter/"
