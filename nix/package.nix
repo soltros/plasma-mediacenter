@@ -23,6 +23,7 @@ stdenvNoCC.mkDerivation {
 
     mkdir -p "$out/share/applications"
     install -m 0644 assets/info.soltros.supraviolet.desktop "$out/share/applications/info.soltros.supraviolet.desktop"
+    install -m 0644 assets/info.soltros.aonsoku.desktop "$out/share/applications/info.soltros.aonsoku.desktop"
 
     mkdir -p "$out/bin"
     install -m 0755 scripts/plasma-mediacenter-setup "$out/bin/plasma-mediacenter-setup"
