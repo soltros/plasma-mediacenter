@@ -124,7 +124,7 @@ PlasmoidItem {
                         RowLayout {
                             id: browseRow
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 4.75
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 3.6
                             spacing: Kirigami.Units.largeSpacing
 
                             MediaTile {
@@ -190,14 +190,14 @@ PlasmoidItem {
 
                         RunningWindowsRow {
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 6.25
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 5.2
                             appletInterface: root
                         }
 
                         FavoritesRow {
                             id: favorites
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 6.25
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 5.2
                             appletInterface: root
                         }
 
