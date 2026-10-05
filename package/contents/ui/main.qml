@@ -80,11 +80,11 @@ PlasmoidItem {
                 Repeater {
                     id: primaryRepeater
                     model: [
-                        { title: "Live TV", subtitle: "Channels & guide", icon: "▣" },
-                        { title: "Movies", subtitle: "Your library", icon: "▶" },
-                        { title: "Shows", subtitle: "Series & episodes", icon: "▤" },
-                        { title: "Music", subtitle: "Albums & playlists", icon: "♫" },
-                        { title: "Games", subtitle: "Launch & play", icon: "◆" }
+                        { title: "Live TV", subtitle: "Channels & guide", iconName: "video-television", fallbackGlyph: "▣" },
+                        { title: "Movies", subtitle: "Your library", iconName: "video-x-generic", fallbackGlyph: "▶" },
+                        { title: "Shows", subtitle: "Series & episodes", iconName: "folder-videos", fallbackGlyph: "▤" },
+                        { title: "Music", subtitle: "Albums & playlists", iconName: "audio-x-generic", fallbackGlyph: "♫" },
+                        { title: "Games", subtitle: "Launch & play", iconName: "applications-games", fallbackGlyph: "◆" }
                     ]
 
                     delegate: MediaTile {
@@ -94,7 +94,7 @@ PlasmoidItem {
                         Layout.fillWidth: true
                         title: modelData.title
                         subtitle: modelData.subtitle
-                        iconText: modelData.icon
+                        iconName: modelData.iconName\n                        fallbackGlyph: modelData.fallbackGlyph
 
                         Component.onCompleted: {
                             if (index === 0) {
@@ -125,10 +125,10 @@ PlasmoidItem {
                 Repeater {
                     id: quickRepeater
                     model: [
-                        { title: "Jellyfin", subtitle: "Media server", icon: "J" },
-                        { title: "Supraviolet", subtitle: "IPTV", icon: "S" },
-                        { title: "Steam", subtitle: "Big Picture", icon: "◉" },
-                        { title: "Desktop", subtitle: "Return to Plasma", icon: "⌂" }
+                        { title: "Jellyfin", subtitle: "Media server", iconName: "", fallbackGlyph: "J" },
+                        { title: "Supraviolet", subtitle: "IPTV", iconName: "", fallbackGlyph: "S" },
+                        { title: "Steam", subtitle: "Big Picture", iconName: "steam", fallbackGlyph: "◉" },
+                        { title: "Desktop", subtitle: "Return to Plasma", iconName: "user-desktop", fallbackGlyph: "⌂" }
                     ]
 
                     delegate: MediaTile {
