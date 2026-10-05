@@ -125,6 +125,8 @@ PlasmoidItem {
                             id: browseRow
                             Layout.fillWidth: true
                             Layout.minimumHeight: Kirigami.Units.gridUnit * 3.6
+                            Layout.preferredHeight: Kirigami.Units.gridUnit * 3.6
+                            Layout.maximumHeight: Kirigami.Units.gridUnit * 3.6
                             spacing: Kirigami.Units.largeSpacing
 
                             MediaTile {
@@ -191,6 +193,8 @@ PlasmoidItem {
                         RunningWindowsRow {
                             Layout.fillWidth: true
                             Layout.minimumHeight: Kirigami.Units.gridUnit * 5.2
+                            Layout.preferredHeight: Kirigami.Units.gridUnit * 5.2
+                            Layout.maximumHeight: Kirigami.Units.gridUnit * 5.2
                             appletInterface: root
                         }
 
@@ -198,6 +202,8 @@ PlasmoidItem {
                             id: favorites
                             Layout.fillWidth: true
                             Layout.minimumHeight: Kirigami.Units.gridUnit * 5.2
+                            Layout.preferredHeight: Kirigami.Units.gridUnit * 5.2
+                            Layout.maximumHeight: Kirigami.Units.gridUnit * 5.2
                             appletInterface: root
                         }
 
@@ -210,6 +216,8 @@ PlasmoidItem {
                         NowPlaying {
                             Layout.fillWidth: true
                             Layout.minimumHeight: Kirigami.Units.gridUnit * 4.75
+                            Layout.preferredHeight: Kirigami.Units.gridUnit * 4.75
+                            Layout.maximumHeight: Kirigami.Units.gridUnit * 4.75
                             Layout.topMargin: Kirigami.Units.smallSpacing
                         }
                     }
