@@ -21,6 +21,9 @@ stdenvNoCC.mkDerivation {
     mkdir -p "$out/share/plasma-mediacenter/scripts"
     cp scripts/plasma-mediacenter-layout.js "$out/share/plasma-mediacenter/scripts/"
 
+    mkdir -p "$out/share/applications"
+    install -m 0644 assets/info.soltros.supraviolet.desktop "$out/share/applications/info.soltros.supraviolet.desktop"
+
     mkdir -p "$out/bin"
     install -m 0755 scripts/plasma-mediacenter-setup "$out/bin/plasma-mediacenter-setup"
     substituteInPlace "$out/bin/plasma-mediacenter-setup" \
