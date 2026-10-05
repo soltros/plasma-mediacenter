@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import org.kde.plasma.plasmoid
+import org.kde.plasma.core as PlasmaCore
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.components as PC3
 
@@ -16,6 +17,7 @@ PlasmoidItem {
     switchHeight: Kirigami.Units.gridUnit * 30
 
     preferredRepresentation: fullRepresentation
+    Plasmoid.backgroundHints: PlasmaCore.Types.NoBackground
 
     fullRepresentation: Item {
         id: shell
@@ -24,25 +26,6 @@ PlasmoidItem {
         implicitHeight: root.implicitHeight
         focus: true
         clip: true
-
-        Rectangle {
-            anchors.fill: parent
-            color: Kirigami.Theme.backgroundColor
-
-            Rectangle {
-                anchors.fill: parent
-                gradient: Gradient {
-                    GradientStop {
-                        position: 0.0
-                        color: Qt.rgba(0.055, 0.075, 0.12, 0.98)
-                    }
-                    GradientStop {
-                        position: 1.0
-                        color: Qt.rgba(0.012, 0.018, 0.03, 0.98)
-                    }
-                }
-            }
-        }
 
         Loader {
             anchors.fill: parent
@@ -56,9 +39,9 @@ PlasmoidItem {
                 id: home
 
                 readonly property real horizontalMargin:
-                    Math.max(Kirigami.Units.gridUnit * 2.5, width * 0.045)
+                    Math.max(Kirigami.Units.gridUnit * 2, width * 0.035)
                 readonly property real verticalMargin:
-                    Math.max(Kirigami.Units.gridUnit * 1.5, height * 0.035)
+                    Math.max(Kirigami.Units.gridUnit, height * 0.025)
 
                 Flickable {
                     id: homeFlickable
@@ -67,7 +50,7 @@ PlasmoidItem {
                     clip: true
                     boundsBehavior: Flickable.StopAtBounds
                     contentWidth: width
-                    contentHeight: homeColumn.implicitHeight + (home.verticalMargin * 2)
+                    contentHeight: Math.max(height, homeColumn.implicitHeight + (home.verticalMargin * 2))
 
                     ColumnLayout {
                         id: homeColumn
@@ -75,7 +58,11 @@ PlasmoidItem {
                         x: home.horizontalMargin
                         y: home.verticalMargin
                         width: Math.max(0, homeFlickable.width - (home.horizontalMargin * 2))
-                        spacing: Kirigami.Units.largeSpacing * 1.5
+                        height: Math.max(
+                            implicitHeight,
+                            homeFlickable.height - (home.verticalMargin * 2)
+                        )
+                        spacing: Kirigami.Units.largeSpacing * 1.4
 
                         RowLayout {
                             Layout.fillWidth: true
@@ -199,15 +186,16 @@ PlasmoidItem {
                             appletInterface: root
                         }
 
-                        NowPlaying {
-                            Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 5.25
-                            Layout.topMargin: Kirigami.Units.smallSpacing
-                        }
-
                         Item {
                             Layout.fillWidth: true
-                            Layout.minimumHeight: Kirigami.Units.gridUnit
+                            Layout.fillHeight: true
+                            Layout.minimumHeight: Kirigami.Units.largeSpacing
+                        }
+
+                        NowPlaying {
+                            Layout.fillWidth: true
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 5.5
+                            Layout.topMargin: Kirigami.Units.smallSpacing
                         }
                     }
 
@@ -225,10 +213,10 @@ PlasmoidItem {
 
             VideoBrowser {
                 anchors.fill: parent
-                anchors.leftMargin: Math.max(Kirigami.Units.gridUnit * 2.5, width * 0.045)
-                anchors.rightMargin: Math.max(Kirigami.Units.gridUnit * 2.5, width * 0.045)
-                anchors.topMargin: Math.max(Kirigami.Units.gridUnit * 2, height * 0.045)
-                anchors.bottomMargin: Math.max(Kirigami.Units.gridUnit * 1.75, height * 0.04)
+                anchors.leftMargin: Math.max(Kirigami.Units.gridUnit * 2, width * 0.035)
+                anchors.rightMargin: Math.max(Kirigami.Units.gridUnit * 2, width * 0.035)
+                anchors.topMargin: Math.max(Kirigami.Units.gridUnit, height * 0.025)
+                anchors.bottomMargin: Math.max(Kirigami.Units.gridUnit, height * 0.025)
 
                 folderPath: Plasmoid.configuration.videoFolder
                 onBackRequested: root.currentPage = "home"
