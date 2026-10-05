@@ -7,8 +7,10 @@ import org.kde.plasma.components as PC3
 PlasmoidItem {
     id: root
 
+    property string currentPage: "home"
+
     fullRepresentation: Item {
-        id: home
+        id: shell
         focus: true
 
         Rectangle {
@@ -19,111 +21,145 @@ PlasmoidItem {
             }
         }
 
-        ColumnLayout {
+        Loader {
             anchors.fill: parent
-            anchors.leftMargin: Math.max(Kirigami.Units.gridUnit * 2.5, width * 0.045)
-            anchors.rightMargin: Math.max(Kirigami.Units.gridUnit * 2.5, width * 0.045)
-            anchors.topMargin: Math.max(Kirigami.Units.gridUnit * 2, height * 0.045)
-            anchors.bottomMargin: Math.max(Kirigami.Units.gridUnit * 1.75, height * 0.04)
-            spacing: Kirigami.Units.largeSpacing * 2
+            sourceComponent: root.currentPage === "videos" ? videosPage : homePage
+        }
 
-            RowLayout {
-                Layout.fillWidth: true
+        Component {
+            id: homePage
 
+            FocusScope {
                 ColumnLayout {
-                    spacing: Kirigami.Units.smallSpacing
+                    anchors.fill: parent
+                    anchors.leftMargin: Math.max(Kirigami.Units.gridUnit * 2.5, width * 0.045)
+                    anchors.rightMargin: Math.max(Kirigami.Units.gridUnit * 2.5, width * 0.045)
+                    anchors.topMargin: Math.max(Kirigami.Units.gridUnit * 2, height * 0.045)
+                    anchors.bottomMargin: Math.max(Kirigami.Units.gridUnit * 1.75, height * 0.04)
+                    spacing: Kirigami.Units.largeSpacing * 1.5
 
-                    PC3.Label {
-                        text: qsTr("MEDIA CENTER")
-                        font.pixelSize: Kirigami.Units.gridUnit * 0.9
-                        font.letterSpacing: 3
-                        font.bold: true
-                        color: Kirigami.Theme.highlightColor
-                    }
-
-                    PC3.Label {
-                        text: qsTr("Home")
-                        font.pixelSize: Kirigami.Units.gridUnit * 2.25
-                        font.bold: true
-                    }
-                }
-
-                Item { Layout.fillWidth: true }
-
-                PC3.Label {
-                    id: clock
-                    text: Qt.formatTime(new Date(), "h:mm AP")
-                    font.pixelSize: Kirigami.Units.gridUnit * 1.45
-                    font.bold: true
-
-                    Timer {
-                        interval: 1000
-                        repeat: true
-                        running: true
-                        onTriggered: clock.text = Qt.formatTime(new Date(), "h:mm AP")
-                    }
-                }
-            }
-
-            PC3.Label {
-                text: qsTr("Browse")
-                font.pixelSize: Kirigami.Units.gridUnit * 1.15
-                font.bold: true
-            }
-
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: Kirigami.Units.largeSpacing
-
-                Repeater {
-                    id: primaryRepeater
-
-                    model: [
-                        { title: qsTr("Live TV"), subtitle: qsTr("Channels & guide"), iconName: "video-television", fallbackGlyph: "▣" },
-                        { title: qsTr("Movies"), subtitle: qsTr("Your library"), iconName: "video-x-generic", fallbackGlyph: "▶" },
-                        { title: qsTr("Shows"), subtitle: qsTr("Series & episodes"), iconName: "folder-videos", fallbackGlyph: "▤" },
-                        { title: qsTr("Music"), subtitle: qsTr("Albums & playlists"), iconName: "audio-x-generic", fallbackGlyph: "♫" },
-                        { title: qsTr("Games"), subtitle: qsTr("Launch & play"), iconName: "applications-games", fallbackGlyph: "◆" }
-                    ]
-
-                    delegate: MediaTile {
-                        required property var modelData
-                        required property int index
-
+                    RowLayout {
                         Layout.fillWidth: true
-                        title: modelData.title
-                        subtitle: modelData.subtitle
-                        iconName: modelData.iconName
-                        fallbackGlyph: modelData.fallbackGlyph
 
-                        Component.onCompleted: {
-                            if (index === 0) {
-                                forceActiveFocus()
+                        ColumnLayout {
+                            spacing: Kirigami.Units.smallSpacing
+
+                            PC3.Label {
+                                text: qsTr("MEDIA CENTER")
+                                font.pixelSize: Kirigami.Units.gridUnit * 0.9
+                                font.letterSpacing: 3
+                                font.bold: true
+                                color: Kirigami.Theme.highlightColor
+                            }
+
+                            PC3.Label {
+                                text: qsTr("Home")
+                                font.pixelSize: Kirigami.Units.gridUnit * 2.25
+                                font.bold: true
                             }
                         }
 
-                        KeyNavigation.left: index > 0 ? primaryRepeater.itemAt(index - 1) : null
-                        KeyNavigation.right: index < primaryRepeater.count - 1 ? primaryRepeater.itemAt(index + 1) : null
+                        Item { Layout.fillWidth: true }
 
-                        onActivated: {
-                            // These are media-center destinations rather than
-                            // replacements for Plasma infrastructure. Their
-                            // concrete providers are wired in later phases.
+                        PC3.Label {
+                            id: clock
+                            text: Qt.formatTime(new Date(), "h:mm AP")
+                            font.pixelSize: Kirigami.Units.gridUnit * 1.45
+                            font.bold: true
+
+                            Timer {
+                                interval: 1000
+                                repeat: true
+                                running: true
+                                onTriggered: clock.text = Qt.formatTime(new Date(), "h:mm AP")
+                            }
                         }
+                    }
+
+                    SearchBar {
+                        id: searchBar
+                        Layout.fillWidth: true
+                        baseUrl: Plasmoid.configuration.searxngBaseUrl
+                    }
+
+                    PC3.Label {
+                        text: qsTr("Browse")
+                        font.pixelSize: Kirigami.Units.gridUnit * 1.15
+                        font.bold: true
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: Kirigami.Units.largeSpacing
+
+                        MediaTile {
+                            Layout.fillWidth: true
+                            title: qsTr("Videos")
+                            subtitle: qsTr("Local video library")
+                            iconName: "folder-videos"
+                            fallbackGlyph: "▶"
+                            onActivated: root.currentPage = "videos"
+                        }
+
+                        MediaTile {
+                            Layout.fillWidth: true
+                            title: qsTr("Live TV")
+                            subtitle: qsTr("Channels & guide")
+                            iconName: "video-television"
+                            fallbackGlyph: "▣"
+                        }
+
+                        MediaTile {
+                            Layout.fillWidth: true
+                            title: qsTr("Movies")
+                            subtitle: qsTr("Media provider")
+                            iconName: "video-x-generic"
+                            fallbackGlyph: "◆"
+                        }
+
+                        MediaTile {
+                            Layout.fillWidth: true
+                            title: qsTr("Shows")
+                            subtitle: qsTr("Media provider")
+                            iconName: "folder-videos"
+                            fallbackGlyph: "▤"
+                        }
+
+                        MediaTile {
+                            Layout.fillWidth: true
+                            title: qsTr("Music")
+                            subtitle: qsTr("Albums & playlists")
+                            iconName: "audio-x-generic"
+                            fallbackGlyph: "♫"
+                        }
+                    }
+
+                    FavoritesRow {
+                        Layout.fillWidth: true
+                        appletInterface: root
+                    }
+
+                    Item { Layout.fillHeight: true }
+
+                    NowPlaying {
+                        Layout.fillWidth: true
                     }
                 }
             }
+        }
 
-            FrequentAppsRow {
-                id: frequentApps
-                Layout.fillWidth: true
-                appletInterface: root
-            }
+        Component {
+            id: videosPage
 
-            Item { Layout.fillHeight: true }
+            VideoBrowser {
+                anchors.fill: parent
+                anchors.leftMargin: Math.max(Kirigami.Units.gridUnit * 2.5, width * 0.045)
+                anchors.rightMargin: Math.max(Kirigami.Units.gridUnit * 2.5, width * 0.045)
+                anchors.topMargin: Math.max(Kirigami.Units.gridUnit * 2, height * 0.045)
+                anchors.bottomMargin: Math.max(Kirigami.Units.gridUnit * 1.75, height * 0.04)
 
-            NowPlaying {
-                Layout.fillWidth: true
+                folderPath: Plasmoid.configuration.videoFolder
+                onBackRequested: root.currentPage = "home"
             }
         }
     }
