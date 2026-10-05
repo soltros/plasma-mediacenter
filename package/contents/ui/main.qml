@@ -137,9 +137,10 @@ PlasmoidItem {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 title: qsTr("Live TV")
-                                subtitle: qsTr("Channels & guide")
+                                subtitle: qsTr("Supraviolet Desktop")
                                 iconName: "video-television"
                                 fallbackGlyph: "▣"
+                                onActivated: Qt.openUrlExternally("applications:info.soltros.supraviolet.desktop")
                             }
 
                             MediaTile {
