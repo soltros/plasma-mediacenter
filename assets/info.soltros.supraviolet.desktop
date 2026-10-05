@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Supraviolet Desktop
+Comment=TV and IPTV client
+Exec=/home/derrik/supraviolet-desktop/target/release/supraviolet-desktop
+Icon=video-television
+Terminal=false
+Categories=AudioVideo;Video;TV;
+StartupNotify=true

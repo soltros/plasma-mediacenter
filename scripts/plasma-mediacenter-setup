@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT="${1:-/run/current-system/sw/share/plasma-mediacenter/scripts/plasma-mediacenter-layout.js}"
+
+if ! command -v qdbus6 >/dev/null 2>&1; then
+  echo "qdbus6 is required to apply the Plasma Media Center layout." >&2
+  exit 1
+fi
+
+if [[ ! -f "$SCRIPT" ]]; then
+  echo "Layout script not found: $SCRIPT" >&2
+  exit 1
+fi
+
+qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(cat "$SCRIPT")"
+echo "Plasma Media Center applets added to the current desktop containment."
+echo "To use the dedicated containment, choose 'Plasma Media Center Desktop' as the desktop Layout in Plasma's desktop configuration."

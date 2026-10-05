@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Aonsoku
+Comment=Music player
+Exec=flatpak run io.github.victoralvesf.aonsoku
+Icon=audio-x-generic
+Terminal=false
+Categories=AudioVideo;Audio;Music;
+StartupNotify=true

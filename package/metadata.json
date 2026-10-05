@@ -1,0 +1,16 @@
+{
+  "KPlugin": {
+    "Id": "info.soltros.plasma-mediacenter",
+    "Name": "Plasma Media Center",
+    "Description": "A TV-friendly media center home screen for KDE Plasma 6",
+    "Version": "0.1.0",
+    "License": "MIT",
+    "Authors": [
+      {
+        "Name": "SoltrOS"
+      }
+    ],
+    "Category": "Multimedia"
+  },
+  "X-Plasma-API-Minimum-Version": "6.0"
+}
