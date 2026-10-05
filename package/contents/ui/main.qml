@@ -10,18 +10,11 @@ PlasmoidItem {
         id: home
         focus: true
 
-        property int selectedIndex: 0
-
         Rectangle {
             anchors.fill: parent
-            color: Kirigami.Theme.backgroundColor
-
-            Rectangle {
-                anchors.fill: parent
-                gradient: Gradient {
-                    GradientStop { position: 0.0; color: Qt.rgba(0.05, 0.08, 0.14, 1.0) }
-                    GradientStop { position: 1.0; color: Qt.rgba(0.015, 0.02, 0.035, 1.0) }
-                }
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: Qt.rgba(0.05, 0.08, 0.14, 1.0) }
+                GradientStop { position: 1.0; color: Qt.rgba(0.015, 0.02, 0.035, 1.0) }
             }
         }
 
@@ -81,11 +74,11 @@ PlasmoidItem {
             }
 
             RowLayout {
-                id: primaryRow
                 Layout.fillWidth: true
                 spacing: 18
 
                 Repeater {
+                    id: primaryRepeater
                     model: [
                         { title: "Live TV", subtitle: "Channels & guide", icon: "▣" },
                         { title: "Movies", subtitle: "Your library", icon: "▶" },
@@ -102,7 +95,12 @@ PlasmoidItem {
                         title: modelData.title
                         subtitle: modelData.subtitle
                         iconText: modelData.icon
-                        focus: index === 0
+
+                        Component.onCompleted: {
+                            if (index === 0) {
+                                forceActiveFocus()
+                            }
+                        }
 
                         KeyNavigation.left: index > 0 ? primaryRepeater.itemAt(index - 1) : null
                         KeyNavigation.right: index < primaryRepeater.count - 1 ? primaryRepeater.itemAt(index + 1) : null
@@ -111,8 +109,6 @@ PlasmoidItem {
                         onActivated: statusText.text = title + " provider wiring comes next."
                     }
                 }
-
-                Repeater { id: primaryRepeater; model: 0 }
             }
 
             Text {
@@ -147,7 +143,8 @@ PlasmoidItem {
 
                         KeyNavigation.left: index > 0 ? quickRepeater.itemAt(index - 1) : null
                         KeyNavigation.right: index < quickRepeater.count - 1 ? quickRepeater.itemAt(index + 1) : null
-                        KeyNavigation.up: primaryRow.children.length > index ? primaryRow.children[index] : null
+                        KeyNavigation.up: primaryRepeater.count > 0 ? primaryRepeater.itemAt(Math.min(index, primaryRepeater.count - 1)) : null
+
                         onActivated: statusText.text = title + " launcher wiring comes next."
                     }
                 }
@@ -196,6 +193,8 @@ PlasmoidItem {
                             text: "MPRIS integration is planned for the next prototype pass."
                             font.pixelSize: 14
                             color: Kirigami.Theme.disabledTextColor
+                            elide: Text.ElideRight
+                            Layout.fillWidth: true
                         }
                     }
 
