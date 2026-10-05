@@ -1,8 +1,12 @@
 import QtQuick
 import org.kde.plasma.plasma5support as Plasma5Support
 
-QtObject {
+Item {
     id: root
+
+    visible: false
+    width: 0
+    height: 0
 
     function launch(command) {
         if (!command || command.length === 0) {
