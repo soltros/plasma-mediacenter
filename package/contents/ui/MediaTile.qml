@@ -13,7 +13,7 @@ FocusScope {
     signal activated()
 
     implicitWidth: Kirigami.Units.gridUnit * 10
-    implicitHeight: Kirigami.Units.gridUnit * 4.75
+    implicitHeight: Kirigami.Units.gridUnit * 3.6
 
     PC3.Button {
         id: button
