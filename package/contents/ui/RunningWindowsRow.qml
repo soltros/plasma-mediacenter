@@ -9,7 +9,7 @@ FocusScope {
     id: root
 
     property var appletInterface
-    property int maximumVisibleItems: 6
+    property int maximumVisibleItems: 5
 
     implicitHeight: column.implicitHeight
 
@@ -57,7 +57,7 @@ FocusScope {
             id: taskView
 
             Layout.fillWidth: true
-            Layout.preferredHeight: Kirigami.Units.gridUnit * 7.5
+            Layout.preferredHeight: Kirigami.Units.gridUnit * 5.5
 
             orientation: ListView.Horizontal
             spacing: Kirigami.Units.largeSpacing
@@ -71,7 +71,7 @@ FocusScope {
                 required property var model
 
                 width: Math.max(
-                    Kirigami.Units.gridUnit * 11,
+                    Kirigami.Units.gridUnit * 10,
                     (taskView.width - taskView.spacing * (root.maximumVisibleItems - 1))
                         / root.maximumVisibleItems
                 )
