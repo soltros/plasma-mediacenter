@@ -8,7 +8,7 @@ FocusScope {
     id: root
 
     property var appletInterface
-    property int maximumItems: 5
+    property int maximumVisibleItems: 5
     signal appLaunched()
 
     implicitHeight: column.implicitHeight
@@ -31,7 +31,7 @@ FocusScope {
     Kicker.RecentUsageModel {
         id: frequentModel
         favoritesModel: rootModel.favoritesModel
-        ordering: 1
+        ordering: Kicker.RecentUsageModel.Popular
         shownItems: Kicker.RecentUsageModel.OnlyApps
     }
 
@@ -54,36 +54,44 @@ FocusScope {
 
             PC3.Label {
                 visible: frequentModel.count === 0
-                text: qsTr("Your frequently used Plasma apps will appear here")
+                text: qsTr("Frequently used Plasma apps will appear here")
                 opacity: 0.62
             }
         }
 
-        RowLayout {
-            id: appRow
+        ListView {
+            id: appView
+
             Layout.fillWidth: true
+            Layout.preferredHeight: Kirigami.Units.gridUnit * 7.5
+
+            orientation: ListView.Horizontal
             spacing: Kirigami.Units.largeSpacing
+            clip: true
+            boundsBehavior: Flickable.StopAtBounds
+            keyNavigationWraps: false
+            model: frequentModel
 
-            Repeater {
-                id: appsRepeater
-                model: Math.min(frequentModel.count, root.maximumItems)
+            delegate: MediaTile {
+                required property int index
+                required property var model
 
-                delegate: MediaTile {
-                    required property int index
+                width: Math.max(
+                    Kirigami.Units.gridUnit * 12,
+                    (appView.width - (appView.spacing * (root.maximumVisibleItems - 1)))
+                        / root.maximumVisibleItems
+                )
+                height: appView.height
 
-                    Layout.fillWidth: true
-                    title: frequentModel.data(frequentModel.index(index, 0), Qt.DisplayRole) ?? qsTr("Application")
-                    iconName: {
-                        const item = frequentModel.get ? frequentModel.get(index) : null
-                        return item?.decoration ?? "application-x-executable"
-                    }
-                    subtitle: qsTr("Plasma application")
+                title: model.display ?? qsTr("Application")
+                subtitle: model.description ?? qsTr("Plasma application")
+                iconName: model.decoration ?? "application-x-executable"
 
-                    KeyNavigation.left: index > 0 ? appsRepeater.itemAt(index - 1) : null
-                    KeyNavigation.right: index < appsRepeater.count - 1 ? appsRepeater.itemAt(index + 1) : null
+                KeyNavigation.left: index > 0 ? appView.itemAtIndex(index - 1) : null
+                KeyNavigation.right: index < appView.count - 1 ? appView.itemAtIndex(index + 1) : null
 
-                    onActivated: {
-                        frequentModel.trigger(index, "", null)
+                onActivated: {
+                    if (frequentModel.trigger(index, "", null)) {
                         root.appLaunched()
                     }
                 }
