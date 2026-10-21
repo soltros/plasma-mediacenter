@@ -9,6 +9,8 @@ import org.kde.plasma.plasmoid
 KCMUtils.SimpleKCM {
     property alias cfg_searxngBaseUrl: searxngField.text
     property alias cfg_videoFolder: videoFolderField.text
+    property alias cfg_jellyfinCommand: jellyfinCommandField.text
+    property alias cfg_youtubeCommand: youtubeCommandField.text
 
     Kirigami.FormLayout {
         anchors.left: parent.left
@@ -37,6 +39,22 @@ KCMUtils.SimpleKCM {
                 icon.name: "document-open-folder"
                 onClicked: folderDialog.open()
             }
+        }
+
+        QQC2.TextField {
+            id: jellyfinCommandField
+            Kirigami.FormData.label: qsTr("Jellyfin command:")
+            Layout.fillWidth: true
+            placeholderText: "flatpak 'run' '--command=brave' 'com.brave.Browser' '--profile-directory=Default' '--app-id=apmdlicpkolknggolhaafgkddgkcopam'"
+            text: Plasmoid.configuration.jellyfinCommand
+        }
+
+        QQC2.TextField {
+            id: youtubeCommandField
+            Kirigami.FormData.label: qsTr("YouTube command:")
+            Layout.fillWidth: true
+            placeholderText: "flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=lmlbegeinfagimckgkpmkpkkcojdkplf"
+            text: Plasmoid.configuration.youtubeCommand
         }
 
         QQC2.Label {

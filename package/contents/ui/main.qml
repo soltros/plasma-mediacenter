@@ -159,21 +159,27 @@ PlasmoidItem {
                             MediaTile {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-                                title: qsTr("Movies")
-                                subtitle: qsTr("Jellyfin")
+                                title: qsTr("Jellyfin")
+                                subtitle: qsTr("Movies & TV")
                                 iconName: "video-x-generic"
                                 fallbackGlyph: "◆"
-                                onActivated: Qt.openUrlExternally("https://jellyfin.soltros.info/web/#/movies")
+                                onActivated: execLauncher.launch(
+                                    Plasmoid.configuration.jellyfinCommand
+                                    || "flatpak 'run' '--command=brave' 'com.brave.Browser' '--profile-directory=Default' '--app-id=apmdlicpkolknggolhaafgkddgkcopam'"
+                                )
                             }
 
                             MediaTile {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
-                                title: qsTr("TV Shows")
-                                subtitle: qsTr("Jellyfin")
-                                iconName: "folder-videos"
-                                fallbackGlyph: "▤"
-                                onActivated: Qt.openUrlExternally("https://jellyfin.soltros.info/web/#/tv")
+                                title: qsTr("YouTube")
+                                subtitle: qsTr("YouTube on TV")
+                                iconName: "youtube"
+                                fallbackGlyph: "▶"
+                                onActivated: execLauncher.launch(
+                                    Plasmoid.configuration.youtubeCommand
+                                    || "flatpak run --command=brave com.brave.Browser --profile-directory=Default --app-id=lmlbegeinfagimckgkpmkpkkcojdkplf"
+                                )
                             }
 
                             MediaTile {
