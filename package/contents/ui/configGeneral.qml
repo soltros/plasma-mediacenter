@@ -9,6 +9,7 @@ import org.kde.plasma.plasmoid
 KCMUtils.SimpleKCM {
     property alias cfg_searxngBaseUrl: searxngField.text
     property alias cfg_videoFolder: videoFolderField.text
+    property alias cfg_supravioletCommand: supravioletCommandField.text
     property alias cfg_jellyfinCommand: jellyfinCommandField.text
     property alias cfg_youtubeCommand: youtubeCommandField.text
 
@@ -39,6 +40,14 @@ KCMUtils.SimpleKCM {
                 icon.name: "document-open-folder"
                 onClicked: folderDialog.open()
             }
+        }
+
+        QQC2.TextField {
+            id: supravioletCommandField
+            Kirigami.FormData.label: qsTr("Supraviolet command:")
+            Layout.fillWidth: true
+            placeholderText: "/home/derrik/supraviolet-desktop/target/release/supraviolet-desktop"
+            text: Plasmoid.configuration.supravioletCommand
         }
 
         QQC2.TextField {
