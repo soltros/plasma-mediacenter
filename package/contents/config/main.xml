@@ -12,6 +12,10 @@
       <label>Folder displayed by the Videos destination.</label>
       <default>$HOME/Videos</default>
     </entry>
+    <entry name="supravioletCommand" type="String">
+      <label>Command used to launch Supraviolet Desktop.</label>
+      <default>/home/derrik/supraviolet-desktop/target/release/supraviolet-desktop</default>
+    </entry>
     <entry name="jellyfinCommand" type="String">
       <label>Command used to launch the Jellyfin tile.</label>
       <default>flatpak 'run' '--command=brave' 'com.brave.Browser' '--profile-directory=Default' '--app-id=apmdlicpkolknggolhaafgkddgkcopam'</default>
