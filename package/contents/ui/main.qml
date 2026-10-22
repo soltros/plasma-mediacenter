@@ -153,7 +153,10 @@ PlasmoidItem {
                                 subtitle: qsTr("Supraviolet Desktop")
                                 iconName: "video-television"
                                 fallbackGlyph: "▣"
-                                onActivated: execLauncher.launch("/home/derrik/supraviolet-desktop/target/release/supraviolet-desktop")
+                                onActivated: execLauncher.launch(
+                                    Plasmoid.configuration.supravioletCommand
+                                    || "/home/derrik/supraviolet-desktop/target/release/supraviolet-desktop"
+                                )
                             }
 
                             MediaTile {
